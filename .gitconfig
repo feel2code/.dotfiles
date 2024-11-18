@@ -1,0 +1,5 @@
+[user]
+	name = feel2code
+	email = feel2code@proton.me
+[alias]
+	graph = log --graph --abbrev-commit --pretty=oneline
