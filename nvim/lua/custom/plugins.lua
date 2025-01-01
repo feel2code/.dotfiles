@@ -27,5 +27,9 @@ local plugins = {
       require "custom.configs.lspconfig"
     end,
   },
+  {
+    "github/copilot.vim",
+    lazy = false
+  },
 }
 return plugins

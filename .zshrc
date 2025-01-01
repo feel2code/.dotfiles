@@ -110,6 +110,8 @@ source $ZSH/oh-my-zsh.sh
 alias vim="nvim"
 alias :q="exit"
 alias py="python"
+alias db="bash ~/dbshell/db.sh"
+alias ghce="gh copilot explain"
 
 # vi mode
 bindkey -v
@@ -121,7 +123,5 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -v '^?' backward-delete-char
 
 export PATH=$PATH:~/.cargo/bin/
-
-# custom tmux
-$HOME/.dev.sh
+export EDITOR="nvim"
 
