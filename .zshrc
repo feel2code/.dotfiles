@@ -110,7 +110,7 @@ source $ZSH/oh-my-zsh.sh
 alias vim="nvim"
 alias :q="exit"
 alias py="python"
-alias db="bash ~/dbshell/db.sh"
+alias db="bash ~/db_cli_tools/db.sh"
 alias ghce="gh copilot explain"
 
 # vi mode
