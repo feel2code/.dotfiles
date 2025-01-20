@@ -12,5 +12,6 @@ M.ui = {
 
 }
 M.plugins = "custom.plugins"
+vim.opt.relativenumber = true
 
 return M
