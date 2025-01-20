@@ -109,7 +109,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
 alias :q="exit"
-alias py="python"
+alias py="ipython"
 alias db="bash ~/db_cli_tools/db.sh"
 alias ghce="gh copilot explain"
 
