@@ -3,3 +3,5 @@
 	email = feel2code@proton.me
 [alias]
 	graph = log --graph --abbrev-commit --pretty=oneline
+[push]
+	autoSetupRemote = true
