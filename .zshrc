@@ -112,6 +112,10 @@ alias :q="exit"
 alias py="ipython"
 alias db="bash ~/db_cli_tools/db.sh"
 alias ghce="gh copilot explain"
+alias gs="git for-each-ref --format=' %(authorname) %09 %(refname)' --sort=authorname"
+alias vimdags="cd ~/projects/dags/ && source venv/bin/activate && vim"
+alias vimch="cd ~/projects/clickhouse-migrations/ && vim"
+alias vimpg="cd ~/projects/postgresql-migrations/ && vim"
 
 # vi mode
 bindkey -v
@@ -125,3 +129,7 @@ bindkey -v '^?' backward-delete-char
 export PATH=$PATH:~/.cargo/bin/
 export EDITOR="nvim"
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
