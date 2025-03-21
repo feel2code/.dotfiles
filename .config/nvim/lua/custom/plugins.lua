@@ -14,6 +14,8 @@ local plugins = {
         "black",
         "pylint",
         "isort",
+        "lua-language-server",
+        "typescript-language-server",
         -- "mypy",
         -- "ruff",
         -- "debugpy"
