@@ -1,0 +1,12 @@
+# vim bindings in all the apps via Ctrl (aka Karabiner on MacOS)
+ctrl + h
+  xte 'keyup Control_L' 'keyup h' 'key Left' 'keydown Control_L'
+
+ctrl + j
+  xte 'keyup Control_L' 'keyup j' 'key Down' 'keydown Control_L'
+
+ctrl + k
+  xte 'keyup Control_L' 'keyup k' 'key Up' 'keydown Control_L'
+
+ctrl + l
+  xte 'keyup Control_L' 'keyup l' 'key Right' 'keydown Control_L'
