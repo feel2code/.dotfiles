@@ -12,6 +12,7 @@ M.ui = {
 
 }
 M.plugins = "custom.plugins"
+M.mappings = require "custom.mappings"
 vim.opt.relativenumber = true
 
 vim.keymap.set('i', '<C-y>', 'copilot#Accept("\\<CR>")', {
