@@ -11,7 +11,7 @@ sudo apt install git gcc i3 i3status tar zip unzip fakeroot\
  awesome-terminal-fonts\
  qt5-wayland keepassxc\
  docker docker-compose\
- pyenv
+ pyenv scrot
 
 # snap
 sudo snap install slack
