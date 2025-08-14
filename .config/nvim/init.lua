@@ -1,3 +1,4 @@
+local vim = vim
 -- leader key
 vim.g.mapleader = ' '
 -- numbers at left
@@ -195,13 +196,15 @@ vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
 vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
 vim.keymap.set('n', '<leader>ff', ":Pick files<CR>")
 vim.keymap.set("n", "<leader>fw", ":Pick grep_live<CR>")
-vim.keymap.set('n', '<leader>h', ":Pick help<CR>")
+vim.keymap.set('n', '<leader>h', ":term<CR>i")
 vim.keymap.set('n', '<leader>e', ":Oil<CR>")
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>cr", ":!python3 % <CR>")
 vim.keymap.set("n", "<leader>gb", ":GitBlameLine<CR>")
 vim.keymap.set("n", "<leader>x", ":bd<CR>")
+vim.keymap.set("n", "<Tab>", ":bn<CR>")
+vim.keymap.set("n", "<S-Tab>", ":bp<CR>")
 
 -- lsp enabling
 vim.lsp.enable({ "lua_ls", "pyright" })
