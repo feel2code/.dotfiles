@@ -206,6 +206,10 @@ vim.keymap.set("n", "<leader>x", ":bd<CR>")
 vim.keymap.set("n", "<Tab>", ":bn<CR>")
 vim.keymap.set("n", "<S-Tab>", ":bp<CR>")
 
+-- visual transparent
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+
 -- lsp enabling
 vim.lsp.enable({ "lua_ls", "pyright" })
 -- transparent statusline
