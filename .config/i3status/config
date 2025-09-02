@@ -15,8 +15,8 @@ order += "tztime utc"
 order += "tztime London"
 order += "tztime local"
 volume master {
-	format = " %volume"
-	format_muted = " MUTE"
+	format = "VOL %volume"
+	format_muted = "VOL MUTE"
 	device = "default"
 	mixer = "Master"
 	mixer_idx = 0
@@ -25,38 +25,38 @@ path_exists VPN {
         path = "/proc/sys/net/ipv4/conf/tun0"
 }
 wireless _first_ {
-        format_up = " (%quality at %essid) %ip"
-        format_down = " down"
+        format_up = "(%quality at %essid) %ip"
+        format_down = "down"
 }
 ethernet _first_ {
-        format_up = " %ip"
-        format_down = " down"
+        format_up = "%ip"
+        format_down = "down"
 }
 battery all {
         format = "%status %percentage %remaining %emptytime"
 	last_full_capacity = true
 	integer_battery_capacity = true
-	status_chr = ""
-	status_full = ""
-	status_bat = ""
+	status_chr = "CHR"
+	status_full = "FLL"
+	status_bat = "BAT"
 	path = "/sys/class/power_supply/BAT%d/uevent"
 	low_threshold = 10
 }
 disk "/" {
-        format = " %avail"
+        format = "DF %avail"
 }
 load {
         format = "%1min"
 }
 cpu_usage {
-	format = " %usage"
+	format = "CPU %usage"
 }
 memory {
-        format = " %used"
+        format = "RAM %used"
 #	/ %available"
         threshold_degraded = "2G"
         format_degraded = "MEMORY < %available"
 }
 tztime local {
-        format = " %H:%M:%S  %Y-%m-%d,%A"
+        format = " %H:%M:%S %Y-%m-%d, %A"
 }
