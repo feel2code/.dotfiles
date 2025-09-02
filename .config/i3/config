@@ -9,6 +9,7 @@ exec_always --no-startup-id picom --config ~/.config/picom/picom.conf -b
 exec --no-startup-id nm-applet
 exec blueman-applet
 # notifications control
+exec_always --no-startup-id dunst
 bindsym $mod+equal exec dunstctl history-pop
 bindsym $mod+minus exec dunstctl close-all
 # Use pactl to adjust volume in PulseAudio.
