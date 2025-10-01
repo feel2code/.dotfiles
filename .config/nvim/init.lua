@@ -137,9 +137,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 vim.cmd("set completeopt+=noselect")
 
 -- cmp
-local lspconfig = require("lspconfig")
+local lspconfig = vim.lsp.config
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-lspconfig.pyright.setup({
+vim.lsp.config('pyright', {
     capabilities = capabilities,
 })
 
