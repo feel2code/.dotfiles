@@ -9,7 +9,6 @@ vim.o.relativenumber = true
 vim.o.signcolumn = "yes"
 -- colored
 vim.o.termguicolors = true
-vim.o.wrap = false
 vim.o.swapfile = false
 vim.o.winborder = "rounded"
 vim.o.ignorecase = true
