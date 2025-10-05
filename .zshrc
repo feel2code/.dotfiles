@@ -30,14 +30,7 @@ bindkey -v '^?' backward-delete-char
 export PATH=$PATH:/opt/nvim/bin/
 export PATH=$PATH:~/.cargo/bin/
 export EDITOR="nvim"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Created by `pipx` on 2025-04-15 06:31:23
-export PATH="$PATH:/home/feliks/.local/bin"
-
+export PATH="$PATH:/home/$USER/.local/bin"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - bash)"
