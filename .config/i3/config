@@ -83,7 +83,7 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 bindsym $mod+r mode "resize"
-default_border none
+default_border pixel 1
 bar {
   position top
 	status_command i3status
