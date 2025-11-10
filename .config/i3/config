@@ -92,6 +92,7 @@ bar {
 		focused_workspace #000000 #666666 #ffffff
 	}
 }
+bindsym Print exec flameshot gui
 exec keepassxc
 exec sxhkd
 exec x11vnc -forever -loop -noxdamage
