@@ -3,7 +3,7 @@
     "ollama": {
       "npm": "@ai-sdk/openai-compatible",
       "models": {
-        "deepseek-r1:14b": {}
+        "MFDoom/deepseek-r1-tool-calling:14b": {}
       },
       "options": {
         "baseURL": "http://localhost:11434/v1"
