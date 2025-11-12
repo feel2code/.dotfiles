@@ -121,7 +121,7 @@ require("lazy").setup({
 -- mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "jedi_language_server" }
+	ensure_installed = { "lua_ls", "jedi_language_server", "sqls" }
 })
 
 -- lsp attach
@@ -212,6 +212,6 @@ vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- lsp enabling
-vim.lsp.enable({ "lua_ls", "jedi_language_server" })
+vim.lsp.enable({ "lua_ls", "jedi_language_server", "sqls" })
 -- transparent statusline
 vim.cmd(":hi statusline guibg=NONE")
