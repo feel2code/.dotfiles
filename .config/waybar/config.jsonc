@@ -51,16 +51,16 @@
   },
 
   "clock": {
-    "timezone": "Asia/Kolkata",
+    "timezone": "Europe/Moscow",
     "tooltip": false,
-    "format": "{:%H:%M:%S  -  %A, %d}",
+    "format": "{:%H:%M:%S  -  %A, %d, %m, %y}",
     "interval": 1
   },
 
   "network": {
-    "format-wifi": "WIFI",
-    "format-ethernet": "󰈀 ",
-    "format-disconnected": "WIFI DISCONN",
+    "format-wifi": "WIFI {essid}",
+    "format-ethernet": "ETH {ipaddr}",
+    "format-disconnected": "DISCONN",
     "interval": 5,
     "tooltip-format": "{essid} ({signalStrength}%)",
     "on-click": "nm-connection-editor"
