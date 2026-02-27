@@ -99,14 +99,13 @@ bindsym Print exec flameshot gui
 exec sxhkd
 exec x11vnc -forever -loop -noxdamage
 
-exec setxkbmap -layout "us,ru" -option "grp:win_space_toggle"
+exec --no-startup-id /usr/bin/setxkbmap -layout "us,ru" -option "grp:win_space_toggle"
 
 exec --no-startup-id xfce4-power-manager
-# or another one
 exec --no-startup-id feh --bg-scale /home/$USER/Pictures/wallpapers/Anime-Girl2.png
 
 exec --no-startup-id i3-msg "workspace 1; exec kitty sh -c 'tmux attach -t dev || tmux new -s dev'"
-exec --no-startup-id i3-msg "workspace 2; exec zen"
+exec --no-startup-id i3-msg "workspace 2; exec chromium"
 exec --no-startup-id i3-msg "workspace 3; exec slack"
 exec --no-startup-id i3-msg "workspace 4; exec telegram"
 exec --no-startup-id i3-msg "workspace 5; exec keepassxc"
