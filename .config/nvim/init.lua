@@ -69,7 +69,7 @@ require("lazy").setup({
     { "neovim/nvim-lspconfig" },
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
-    { "nvim-treesitter/nvim-treesitter" },
+    { "nvim-treesitter/nvim-treesitter", },
     -- nohlsearch
     {
         'nvimdev/hlsearch.nvim',
@@ -188,10 +188,13 @@ vim.diagnostic.config({
 })
 
 -- mini.pick
-require "mini.pick".setup()
+require "mini.pick".setup({
+    mappings = { choose_marked = "<C-q>" },
+})
+
 -- nvim-treesitter
-require "nvim-treesitter.configs".setup({
-    ensure_installed = { "python" },
+require "nvim-treesitter.config".setup({
+    ensure_installed = { "python", "lua" },
     highlight = { enable = true }
 })
 --oil
