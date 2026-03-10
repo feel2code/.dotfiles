@@ -34,3 +34,10 @@ export PATH="$PATH:/home/$USER/.local/bin"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - bash)"
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+
+# Auto-start X on tty1
+if [[ -z "$DISPLAY" && "$XDG_VTNR" == "1" ]]; then
+  exec startx
+fi
