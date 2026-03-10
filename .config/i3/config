@@ -6,7 +6,6 @@ set $TERMINAL kitty
 exec_always --no-startup-id "export TERMINAL=$TERMINAL"
 # Start picom compositor
 exec_always --no-startup-id picom --backend xrender --config ~/.config/picom/picom.conf -b
-exec blueman-applet
 # notifications control
 exec_always --no-startup-id dunst
 bindsym $mod+equal exec dunstctl history-pop
@@ -104,10 +103,12 @@ exec --no-startup-id xinput set-prop "Synaptics TM3276-022" "libinput Tapping En
 # prtsc
 exec --no-startup-id flameshot
 bindsym Print exec flameshot gui
+# connectivity
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 # wallpaper
 exec --no-startup-id feh --bg-scale /home/$USER/Pictures/wallpapers/Anime-Girl2.png
 # startup
-exec --no-startup-id nm-tray
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id kitty sh -c 'tmux attach -t dev || tmux new -s dev'
 exec --no-startup-id chromium
