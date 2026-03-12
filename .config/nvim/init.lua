@@ -194,7 +194,7 @@ require "mini.pick".setup({
 
 -- nvim-treesitter
 require "nvim-treesitter.config".setup({
-    ensure_installed = { "python", "lua" },
+    ensure_installed = { "python", "lua", "markdown" },
     highlight = { enable = true }
 })
 --oil
