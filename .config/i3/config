@@ -4,8 +4,9 @@ exec --no-startup-id dex --autostart --environment i3
 # Set default terminal
 set $TERMINAL kitty
 exec_always --no-startup-id "export TERMINAL=$TERMINAL"
-# Start picom compositor
-exec_always --no-startup-id picom --backend xrender --config ~/.config/picom/picom.conf -b
+# picom compositor
+# exec_always --no-startup-id picom --backend xrender --config ~/.config/picom/picom.conf -b
+
 # notifications control
 exec_always --no-startup-id dunst
 bindsym $mod+equal exec dunstctl history-pop
@@ -30,6 +31,7 @@ bindsym $mod+q kill
 bindsym $mod+d exec --no-startup-id dmenu_run
 # displays
 # exec xrandr --output DP-0 --primary --mode 2560x1440
+
 # make pip run in any frames
 for_window [title="Picture-in-Picture"] sticky enable
 # change focus
@@ -95,22 +97,17 @@ bar {
 		focused_workspace #000000 #666666 #ffffff
 	}
 }
-
 # touchpad
 exec --no-startup-id xinput set-prop "Synaptics TM3276-022" "libinput Natural Scrolling Enabled" 1
 exec --no-startup-id xinput set-prop "Synaptics TM3276-022" "libinput Tapping Enabled" 1
-
 # prtsc
 exec --no-startup-id flameshot
 bindsym Print exec flameshot gui
 # connectivity
 exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
 # wallpaper
 exec --no-startup-id feh --bg-scale /home/$USER/Pictures/wallpapers/Anime-Girl2.png
 # startup
-exec --no-startup-id xfce4-power-manager
 exec --no-startup-id kitty sh -c 'tmux attach -t dev || tmux new -s dev'
 exec --no-startup-id chromium
 exec --no-startup-id slack
-exec x11vnc -forever -loop -noxdamage
