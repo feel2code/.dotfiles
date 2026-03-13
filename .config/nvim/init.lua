@@ -69,7 +69,8 @@ require("lazy").setup({
     { "neovim/nvim-lspconfig" },
     { "williamboman/mason.nvim" },
     { "williamboman/mason-lspconfig.nvim" },
-    { "nvim-treesitter/nvim-treesitter", },
+    { "nvim-treesitter/nvim-treesitter" },
+    { "github/copilot.vim" },
     -- nohlsearch
     {
         'nvimdev/hlsearch.nvim',
@@ -194,7 +195,7 @@ require "mini.pick".setup({
 
 -- nvim-treesitter
 require "nvim-treesitter.config".setup({
-    ensure_installed = { "python", "lua", "markdown" },
+    ensure_installed = { "python", "lua", "markdown", "vimdoc" },
     highlight = { enable = true }
 })
 --oil
@@ -215,6 +216,11 @@ vim.keymap.set("n", "<leader>gb", ":GitBlameLine<CR>")
 vim.keymap.set("n", "<leader>x", ":bd<CR>")
 vim.keymap.set("n", "<Tab>", ":bn<CR>")
 vim.keymap.set("n", "<S-Tab>", ":bp<CR>")
+
+-- copilot
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.keymap.set("i", "<C-y>", 'copilot#Accept("")', { expr = true, replace_keycodes = false, silent = true, })
 
 -- visual transparent
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
