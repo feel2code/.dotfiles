@@ -14,9 +14,9 @@ alias py="ipython"
 alias db="bash ~/db_cli_tools/db.sh"
 alias gs="git for-each-ref --format=' %(authorname) %09 %(refname)' --sort=authorname"
 alias vimdags="cd ~/projects/dags/ && source venv/bin/activate && vim"
-alias vimch="cd ~/projects/clickhouse-migrations/ && vim"
-alias vimpg="cd ~/projects/postgresql-migrations/ && vim"
-alias saas="cd ~/projects/saas/"
+alias vimch="cd ~/projects/clickhouse_migrations/ && vim"
+alias vimpg="cd ~/projects/postgres_migrations/ && vim"
+alias cal='ncal -b'
 
 # vi mode
 bindkey -v
