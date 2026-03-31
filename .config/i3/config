@@ -103,6 +103,10 @@ exec --no-startup-id xinput set-prop "Synaptics TM3276-022" "libinput Tapping En
 # prtsc
 exec --no-startup-id flameshot
 bindsym Print exec flameshot gui
+# xrandr multiple/single display
+bindsym XF86Display exec --no-startup-id /home/$USER/dp-hotplug.sh
+# pavucontrol for change input/output sound
+bindsym XF86Tools exec --no-startup-id pavucontrol
 # connectivity
 exec --no-startup-id nm-applet
 # wallpaper
