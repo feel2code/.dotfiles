@@ -230,3 +230,6 @@ vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 vim.lsp.enable({ "lua_ls", "jedi_language_server" })
 -- transparent statusline
 vim.cmd(":hi statusline guibg=NONE")
+-- langmap
+vim.cmd(
+    ":set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz")

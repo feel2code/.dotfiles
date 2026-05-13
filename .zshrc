@@ -17,6 +17,10 @@ alias vimdags="cd ~/projects/dags/ && source venv/bin/activate && vim"
 alias vimch="cd ~/projects/clickhouse_migrations/ && vim"
 alias vimpg="cd ~/projects/postgres_migrations/ && vim"
 alias cal='ncal -b'
+alias ip='ip --color=auto'
+alias update='sudo apt update && sudo apt upgrade -y && brew update && brew upgrade && pipx upgrade-all && omz update'
+alias moonlight='flatpak run com.moonlight_stream.Moonlight stream boba Desktop'
+alias organicmaps='flatpak run app.organicmaps.desktop'
 
 # vi mode
 bindkey -v
