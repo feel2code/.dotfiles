@@ -13,9 +13,9 @@ alias :q="exit"
 alias py="ipython"
 alias db="bash ~/db_cli_tools/db.sh"
 alias gs="git for-each-ref --format=' %(authorname) %09 %(refname)' --sort=authorname"
-alias vimdags="cd ~/projects/dags/ && source venv/bin/activate && vim"
-alias vimch="cd ~/projects/clickhouse_migrations/ && vim"
-alias vimpg="cd ~/projects/postgres_migrations/ && vim"
+alias vimdags="cd ~/projects/dags/ && source venv/bin/activate"
+alias vimch="cd ~/projects/clickhouse_migrations/"
+alias vimpg="cd ~/projects/postgres_migrations/"
 alias cal='ncal -b'
 alias ip='ip --color=auto'
 alias update='sudo apt update && sudo apt upgrade -y && brew update && brew upgrade && pipx upgrade-all && omz update'
@@ -45,3 +45,21 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 if [[ -z "$DISPLAY" && "$XDG_VTNR" == "1" ]]; then
   exec startx
 fi
+
+autoload -Uz add-zsh-hook
+
+function _tmux_rename() {
+[[ -z "$TMUX" ]] && return
+local projects_dir="$HOME/projects"
+if [[ "$PWD" == "$projects_dir/"* ]]; then
+  local project="${PWD#$projects_dir/}"
+  project="${project%%/*}"
+  tmux set-window-option automatic-rename off > /dev/null
+  tmux rename-window "$project"
+else
+  tmux set-window-option automatic-rename on > /dev/null
+fi
+}
+
+add-zsh-hook precmd _tmux_rename
+add-zsh-hook preexec _tmux_rename
