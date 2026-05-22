@@ -122,7 +122,7 @@ require("lazy").setup({
 -- mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "jedi_language_server" }
+    ensure_installed = { "lua_ls", "jedi_language_server", "ruff" }
 })
 
 -- lsp attach
@@ -148,6 +148,18 @@ vim.lsp.config('jedi_language_server', {
         })
     end,
 })
+vim.lsp.config('ruff', {
+    capabilities = capabilities,
+    init_options = {
+        settings = {
+            lint = {
+                enable = true,
+                -- select = { "E", "F", "UP", "W", "I", "AIR301" },
+                select = { "ALL" },
+            },
+        },
+    },
+})
 
 local cmp = require("cmp")
 cmp.setup({
@@ -167,20 +179,9 @@ cmp.setup({
     },
 })
 
--- null_ls for lint
+-- null_ls (empty, pylint replaced to ruff LSP)
 local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-        null_ls.builtins.diagnostics.pylint.with({
-            command = "pylint",
-            args = {
-                "--output-format=json",
-                "--from-stdin", "%filepath"
-            },
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-        }),
-    },
-})
+null_ls.setup({ sources = {} })
 
 vim.diagnostic.config({
     virtual_text = true,
@@ -227,7 +228,7 @@ vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- lsp enabling
-vim.lsp.enable({ "lua_ls", "jedi_language_server" })
+vim.lsp.enable({ "lua_ls", "jedi_language_server", "ruff" })
 -- transparent statusline
 vim.cmd(":hi statusline guibg=NONE")
 -- langmap
