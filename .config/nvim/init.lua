@@ -152,11 +152,8 @@ vim.lsp.config('ruff', {
     capabilities = capabilities,
     init_options = {
         settings = {
-            lint = {
-                enable = true,
-                -- select = { "E", "F", "UP", "W", "I", "AIR301" },
-                select = { "ALL" },
-            },
+            lint = { enable = true },
+            configurationPreference = "filesystemFirst",
         },
     },
 })
@@ -184,7 +181,14 @@ local null_ls = require("null-ls")
 null_ls.setup({ sources = {} })
 
 vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = {
+        format = function(diagnostic)
+            if diagnostic.code then
+                return string.format("%s [%s]", diagnostic.message, diagnostic.code)
+            end
+            return diagnostic.message
+        end,
+    },
     signs = true,
     update_in_insert = false,
 })
