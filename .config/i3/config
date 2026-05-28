@@ -12,8 +12,8 @@ exec_always --no-startup-id dunst
 bindsym $mod+equal exec dunstctl history-pop
 bindsym $mod+minus exec dunstctl close-all
 # brightness control
-bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set +10%
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 # Use pactl to adjust volume in PulseAudio.
 # set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id systemd-run --user --collect --quiet /usr/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+
