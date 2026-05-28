@@ -44,9 +44,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Create a command `:GitBlameLine` that print the git blame for the current line
 vim.api.nvim_create_user_command('GitBlameLine', function()
-    local line_number = vim.fn.line('.') -- Get the current line number. See `:h line()`
+    local line_number = vim.fn.line('.')
     local filename = vim.api.nvim_buf_get_name(0)
-    print(vim.fn.system({ 'git', 'blame', '-L', line_number .. ',+1', filename }))
+    local blame = vim.fn.system({ 'git', 'blame', '-L', line_number .. ',+1', filename })
+    local hash = blame:match("^(%x+)")
+    local summary = hash and vim.fn.system({ 'git', 'log', '-1', '--pretty=format:%s', hash }) or ""
+    print(blame .. "  " .. summary)
 end, { desc = 'Print the git blame for the current line' })
 
 -- Bootstrap lazy.nvim
@@ -108,7 +111,7 @@ require("lazy").setup({
         config = function()
             require("conform").setup({
                 formatters_by_ft = {
-                    python = { "isort", "black" },
+                    python = { "ruff_organize_imports", "ruff_format" },
                 },
                 format_on_save = {
                     lsp_fallback = true,
