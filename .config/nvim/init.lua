@@ -1,20 +1,16 @@
 local vim = vim
 -- leader key
 vim.g.mapleader = ' '
--- numbers at left
-vim.o.number = true
--- relative numbers
-vim.o.relativenumber = true
+vim.o.nu = true
+vim.o.rnu = true
 -- symbols at left
 vim.o.signcolumn = "yes"
 -- colored
 vim.o.termguicolors = true
 vim.o.swapfile = false
-vim.o.winborder = "rounded"
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.cursorline = true
-vim.o.scrolloff = 10
 vim.o.confirm = true
 -- tabs
 vim.o.tabstop = 4
@@ -225,19 +221,12 @@ vim.keymap.set("n", "<leader>x", ":bd<CR>")
 vim.keymap.set("n", "<Tab>", ":bn<CR>")
 vim.keymap.set("n", "<S-Tab>", ":bp<CR>")
 
--- copilot
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_assume_mapped = true
-vim.keymap.set("i", "<C-y>", 'copilot#Accept("")', { expr = true, replace_keycodes = false, silent = true, })
-
 -- visual transparent
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 
 -- lsp enabling
 vim.lsp.enable({ "lua_ls", "jedi_language_server", "ruff" })
--- transparent statusline
-vim.cmd(":hi statusline guibg=NONE")
 -- langmap
 vim.cmd(
     ":set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz")
