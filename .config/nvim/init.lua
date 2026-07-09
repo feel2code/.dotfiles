@@ -1,154 +1,113 @@
 local vim = vim
--- leader key
-vim.g.mapleader = ' '
+vim.g.mapleader = " "
 vim.o.nu = true
 vim.o.rnu = true
--- symbols at left
-vim.o.signcolumn = "yes"
--- colored
 vim.o.termguicolors = true
-vim.o.swapfile = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.cursorline = true
 vim.o.confirm = true
--- tabs
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
 vim.o.list = true
-vim.opt.listchars = {
-    tab = "  ",
-    trail = "_",
-}
+vim.opt.listchars = { tab = "  ", trail = "_" }
 
--- clipboard
 vim.o.clipboard = "unnamedplus"
-vim.api.nvim_create_autocmd('UIEnter', {
-    callback = function()
-        vim.o.clipboard = 'unnamedplus'
-    end,
-})
+vim.cmd("set completeopt+=noselect")
 
--- Highlight when yanking (copying) text.
-vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Highlight when yanking (copying) text',
-    callback = function()
-        vim.hl.on_yank()
-    end,
-})
-
--- Create a command `:GitBlameLine` that print the git blame for the current line
-vim.api.nvim_create_user_command('GitBlameLine', function()
-    local line_number = vim.fn.line('.')
+-- git blame custom
+vim.api.nvim_create_user_command("GitBlameLine", function()
+    local line_number = vim.fn.line(".")
     local filename = vim.api.nvim_buf_get_name(0)
-    local blame = vim.fn.system({ 'git', 'blame', '-L', line_number .. ',+1', filename })
+    local blame = vim.fn.system({ "git", "blame", "-L", line_number .. ",+1", filename })
     local hash = blame:match("^(%x+)")
-    local summary = hash and vim.fn.system({ 'git', 'log', '-1', '--pretty=format:%s', hash }) or ""
+    local summary = hash and vim.fn.system({ "git", "log", "-1", "--pretty=format:%s", hash }) or ""
     print(blame .. "  " .. summary)
-end, { desc = 'Print the git blame for the current line' })
+end, { desc = "Print the git blame for the current line" })
 
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-    if vim.v.shell_error ~= 0 then
-        vim.api.nvim_echo({
-            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out,                            "WarningMsg" },
-            { "\nPress any key to exit..." },
-        }, true, {})
-        vim.fn.getchar()
-        os.exit(1)
+-- Built-in package manager (Neovim 0.12+)
+vim.pack.add({
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    { src = "https://github.com/stevearc/conform.nvim" },
+    { src = "https://github.com/catppuccin/nvim" },
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/echasnovski/mini.pick" },
+    { src = "https://github.com/nvimdev/hlsearch.nvim" },
+})
+
+-- Plugin setup (safe pcall)
+pcall(vim.cmd.colorscheme, "catppuccin-mocha")
+
+do
+    local ok, hl = pcall(require, "hlsearch")
+    if ok then hl.setup() end
+end
+
+do
+    local ok, oil = pcall(require, "oil")
+    if ok then oil.setup() end
+end
+
+do
+    local ok, pick = pcall(require, "mini.pick")
+    if ok then
+        pick.setup({
+            mappings = { choose_marked = "<C-q>" },
+        })
     end
 end
-vim.opt.rtp:prepend(lazypath)
-require("lazy").setup({
-    { "neovim/nvim-lspconfig" },
-    { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
-    { "nvim-treesitter/nvim-treesitter" },
-    { "github/copilot.vim" },
-    -- nohlsearch
-    {
-        'nvimdev/hlsearch.nvim',
-        event = 'BufRead',
-        config = function()
-            require('hlsearch').setup()
-        end
-    },
-    -- colorcheme
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        priority = 1000,
-        config = function()
-            vim.cmd.colorscheme("catppuccin-mocha") -- latte, frappe, macchiato, mocha
-        end,
-    },
-    -- oil file tree
-    { "stevearc/oil.nvim" },
-    -- file picker
-    { "echasnovski/mini.pick" },
-    -- Autocomplete
-    { "hrsh7th/nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "L3MON4D3/LuaSnip" },
-    { "saadparwaiz1/cmp_luasnip" },
-    -- lint
-    {
-        "nvimtools/none-ls.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    -- autoformat
-    {
-        "stevearc/conform.nvim",
-        config = function()
-            require("conform").setup({
-                formatters_by_ft = {
-                    python = { "ruff_organize_imports", "ruff_format" },
-                },
-                format_on_save = {
-                    lsp_fallback = true,
-                    timeout_ms = 1000,
-                },
-            })
-        end,
-    }
-})
 
--- mason
-require("mason").setup()
-require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "jedi_language_server", "ruff" }
-})
+do
+    local ok, conform = pcall(require, "conform")
+    if ok then
+        conform.setup({
+            formatters_by_ft = {
+                python = { "ruff_organize_imports", "ruff_format" },
+            },
+            format_on_save = {
+                lsp_fallback = true,
+                timeout_ms = 1000,
+            },
+        })
+    end
+end
 
--- lsp attach
-vim.api.nvim_create_autocmd('LspAttach', {
+do
+    local ok, ts = pcall(require, "nvim-treesitter.configs")
+    if ok then
+        ts.setup({
+            ensure_installed = { "python", "lua", "markdown", "vimdoc" },
+            highlight = { enable = true },
+        })
+    end
+end
+
+-- LSP
+vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(ev)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client:supports_method('textDocument/completion') then
+        if client and client:supports_method("textDocument/completion") then
             vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
         end
     end,
 })
-vim.cmd("set completeopt+=noselect")
 
--- cmp
-local lspconfig = vim.lsp.config
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-vim.lsp.config('jedi_language_server', {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
+vim.lsp.config("lua_ls", {})
+
+vim.lsp.config("jedi_language_server", {
+    on_attach = function(_, bufnr)
         vim.api.nvim_create_autocmd("CursorHold", {
             buffer = bufnr,
-            callback = function() vim.lsp.buf.hover() end,
+            callback = function()
+                vim.lsp.buf.hover()
+            end,
         })
     end,
 })
-vim.lsp.config('ruff', {
-    capabilities = capabilities,
+
+vim.lsp.config("ruff", {
     init_options = {
         settings = {
             lint = { enable = true },
@@ -157,27 +116,7 @@ vim.lsp.config('ruff', {
     },
 })
 
-local cmp = require("cmp")
-cmp.setup({
-    snippet = {
-        expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-        end,
-    },
-    mapping = {
-        ["<Tab>"] = cmp.mapping.select_next_item(),
-        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    },
-    sources = {
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-    },
-})
-
--- null_ls (empty, pylint replaced to ruff LSP)
-local null_ls = require("null-ls")
-null_ls.setup({ sources = {} })
+vim.lsp.enable({ "lua_ls", "jedi_language_server", "ruff" })
 
 vim.diagnostic.config({
     virtual_text = {
@@ -192,41 +131,24 @@ vim.diagnostic.config({
     update_in_insert = false,
 })
 
--- mini.pick
-require "mini.pick".setup({
-    mappings = { choose_marked = "<C-q>" },
-})
+-- Keymaps
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+vim.keymap.set("n", "<leader>ff", "<cmd>Pick files<CR>")
+vim.keymap.set("n", "<leader>fw", "<cmd>Pick grep_live<CR>")
+vim.keymap.set("n", "<leader>h", "<cmd>term<CR>i")
+vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "<leader>cr", "<cmd>!python3 %<CR>")
+vim.keymap.set("n", "<leader>gb", "<cmd>GitBlameLine<CR>")
+vim.keymap.set("n", "<leader>x", "<cmd>bd<CR>")
+vim.keymap.set("n", "<Tab>", "<cmd>bn<CR>")
+vim.keymap.set("n", "<S-Tab>", "<cmd>bp<CR>")
 
--- nvim-treesitter
-require "nvim-treesitter.config".setup({
-    ensure_installed = { "python", "lua", "markdown", "vimdoc" },
-    highlight = { enable = true }
-})
---oil
-require "oil".setup()
-
--- keymaps
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set({ 'n', 'v', 'x' }, '<leader>y', '"+y<CR>')
-vim.keymap.set({ 'n', 'v', 'x' }, '<leader>d', '"+d<CR>')
-vim.keymap.set('n', '<leader>ff', ":Pick files<CR>")
-vim.keymap.set("n", "<leader>fw", ":Pick grep_live<CR>")
-vim.keymap.set('n', '<leader>h', ":term<CR>i")
-vim.keymap.set('n', '<leader>e', ":Oil<CR>")
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
-vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>cr", ":!python3 % <CR>")
-vim.keymap.set("n", "<leader>gb", ":GitBlameLine<CR>")
-vim.keymap.set("n", "<leader>x", ":bd<CR>")
-vim.keymap.set("n", "<Tab>", ":bn<CR>")
-vim.keymap.set("n", "<S-Tab>", ":bp<CR>")
-
--- visual transparent
+-- UI
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
--- lsp enabling
-vim.lsp.enable({ "lua_ls", "jedi_language_server", "ruff" })
 -- langmap
-vim.cmd(
-    ":set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz")
+vim.cmd([[
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+]])
