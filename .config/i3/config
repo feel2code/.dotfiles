@@ -5,7 +5,7 @@ exec --no-startup-id dex --autostart --environment i3
 set $TERMINAL kitty
 exec_always --no-startup-id "export TERMINAL=$TERMINAL"
 # picom compositor
-exec_always --no-startup-id picom --backend xrender --config ~/.config/picom/picom.conf -b
+# exec_always --no-startup-id picom --backend xrender --config ~/.config/picom/picom.conf -b
 
 # notifications control
 exec_always --no-startup-id dunst
@@ -101,8 +101,7 @@ bar {
 exec --no-startup-id xinput set-prop "Synaptics TM3276-022" "libinput Natural Scrolling Enabled" 1
 exec --no-startup-id xinput set-prop "Synaptics TM3276-022" "libinput Tapping Enabled" 1
 # prtsc
-exec --no-startup-id flameshot
-bindsym Print exec flameshot gui
+bindsym Print exec --no-startup-id sh -c 'scrot -s - | xclip -selection clipboard -t image/png -i'
 # xrandr multiple/single display
 bindsym XF86Display exec --no-startup-id /home/$USER/.local/bin/dphotplug
 # pavucontrol for change input/output sound
