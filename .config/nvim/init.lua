@@ -16,16 +16,6 @@ vim.opt.listchars = { tab = "  ", trail = "_" }
 vim.o.clipboard = "unnamedplus"
 vim.cmd("set completeopt+=noselect")
 
--- git blame custom
-vim.api.nvim_create_user_command("GitBlameLine", function()
-    local line_number = vim.fn.line(".")
-    local filename = vim.api.nvim_buf_get_name(0)
-    local blame = vim.fn.system({ "git", "blame", "-L", line_number .. ",+1", filename })
-    local hash = blame:match("^(%x+)")
-    local summary = hash and vim.fn.system({ "git", "log", "-1", "--pretty=format:%s", hash }) or ""
-    print(blame .. "  " .. summary)
-end, { desc = "Print the git blame for the current line" })
-
 -- Built-in package manager (Neovim 0.12+)
 vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
@@ -35,6 +25,7 @@ vim.pack.add({
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/echasnovski/mini.pick" },
     { src = "https://github.com/nvimdev/hlsearch.nvim" },
+    { src = "https://github.com/tpope/vim-fugitive" },
 })
 
 -- Plugin setup (safe pcall)
@@ -140,7 +131,7 @@ vim.keymap.set("n", "<leader>e", "<cmd>Oil<CR>")
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "<leader>cr", "<cmd>!python3 %<CR>")
-vim.keymap.set("n", "<leader>gb", "<cmd>GitBlameLine<CR>")
+vim.keymap.set("n", "<leader>gb", "<cmd>Git blame<CR>")
 vim.keymap.set("n", "<leader>x", "<cmd>bd<CR>")
 vim.keymap.set("n", "<Tab>", "<cmd>bn<CR>")
 vim.keymap.set("n", "<S-Tab>", "<cmd>bp<CR>")
