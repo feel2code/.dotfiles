@@ -62,8 +62,8 @@ load {
 }
 
 memory {
-        format = "%used|%available"
-        threshold_degraded = "1G"
+        format = "RAM:%available"
+        threshold_degraded = "2G"
         format_degraded = "MEMORY < %available"
 }
 
