@@ -1,2 +1,3 @@
 nvim/lazy-lock.json
 **/.DS_Store
+.config/i3/navidrome.env
