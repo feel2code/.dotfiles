@@ -1,15 +1,14 @@
-#!/bin/sh
-
 . "$HOME/.config/i3/navidrome.env"
 
 now_playing() {
-  STATUS=$(playerctl status 2>/dev/null)
-  if [ "$STATUS" != "Playing" ]; then
+  RESULT=$(curl -s --max-time 3 "$NAVIDROME_API/getNowPlaying.view?u=$NAVIDROME_USER&p=$NAVIDROME_PASS&v=1.16.1&c=i3status&f=json" | \
+      jq -r '.["subsonic-response"].nowPlaying.entry[0] | select(.state=="playing") | "\(.artist) - \(.title)"' 2>/dev/null)
+
+  if [ -z "$RESULT" ]; then
       echo " "
-      return
+  else
+      echo "$RESULT"
   fi
-  curl -s --max-time 3 "$NAVIDROME_API/getNowPlaying.view?u=$NAVIDROME_USER&p=$NAVIDROME_PASS&v=1.16.1&c=i3status&f=json" | \
-      jq -r '.["subsonic-response"].nowPlaying.entry[0] | "\(.artist) - \(.title)"' 2>/dev/null || echo "—"
 }
 
 i3status | while :; do
