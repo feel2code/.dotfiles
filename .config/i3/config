@@ -109,7 +109,7 @@ bindsym XF86Tools exec --no-startup-id pavucontrol
 # connectivity
 exec --no-startup-id nm-applet
 # wallpaper
-exec --no-startup-id feh --bg-scale /home/$USER/Pictures/wallpapers/Anime-Girl2.png
+exec --no-startup-id feh --bg-scale /home/$USER/Pictures/wallpapers/Lofi-Room.png
 # startup
 exec --no-startup-id kitty sh -c 'tmux attach -t dev || tmux new -s dev'
 exec --no-startup-id chromium

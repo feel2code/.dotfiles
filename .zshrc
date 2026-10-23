@@ -16,11 +16,13 @@ alias gs="git for-each-ref --format=' %(authorname) %09 %(refname)' --sort=autho
 alias vimdags="cd ~/projects/dags/ && source venv/bin/activate"
 alias vimch="cd ~/projects/clickhouse_migrations/"
 alias vimpg="cd ~/projects/postgres_migrations/"
+alias vimmd="cd ~/projects/mariadb_migrations/"
 alias cal='ncal -b'
 alias ip='ip --color=auto'
 alias update='sudo apt update && sudo apt upgrade -y && brew update && brew upgrade && pipx upgrade-all && omz update -y && flatpak update -y'
 alias moonlight='flatpak run com.moonlight_stream.Moonlight stream boba Desktop'
 alias organicmaps='flatpak run app.organicmaps.desktop'
+alias netbirdup='netbird down; netbird up; sleep 3; netbird status'
 
 # vi mode
 bindkey -v
